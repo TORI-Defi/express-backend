@@ -1,12 +1,12 @@
 const express = require("express");
-const app = express();
+const server = express();
 require('dotenv').config();
 
 //Environment Vars 
 const stripe = require("stripe")(process.env.TESTKEY);
 
-app.use(express.static("."));
-app.use(express.json());
+server.use(express.static("."));
+server.use(express.json());
 
 const calculateOrderAmount = items => {
   // Replace this constant with a calculation of the order's amount
@@ -15,7 +15,7 @@ const calculateOrderAmount = items => {
   return 1400;
 };
 
-app.post("/create-payment-intent", async (req, res) => {
+server.post("/create-payment-intent", async (req, res) => {
   const { items } = req.body;
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
@@ -28,4 +28,4 @@ app.post("/create-payment-intent", async (req, res) => {
   });
 });
 
-app.listen(4242, () => console.log('Node server listening on port 4242!'));
+server.listen(4242, () => console.log('Node server listening on port 4242!'));
