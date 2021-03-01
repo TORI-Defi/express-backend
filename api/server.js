@@ -2,13 +2,21 @@ const express = require('express');
 require('dotenv').config();
 
 const server = express();
-
 const helmet = require('helmet');
 
-const router = require('../router/router'); 
+//routers 
+const stripe = require('../router/stripe-route'); 
+const binance = require('../router/binance-route');
+const wallet = require('../router/wallet-route')
 
 server.use(helmet());
 server.use(express.json());
+
+
+
+server.use('/api/pay', stripe);
+server.use('/api/trade', binance);
+server.use('/api/wallet', wallet)
 
 
 server.get('/', (req, res) => {
@@ -26,8 +34,6 @@ server.get('/', (req, res) => {
         <p>POST action item @ '/actions'</p>
     `)
 })
-
-server.use('/api/projects', router);
 
 
 module.exports = server; 
