@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node index.js",
-    "server": "nomemon index.js"
+    "server": "nodemon index.js"
   },
   "author": "express-backend",
   "license": "ISC",
