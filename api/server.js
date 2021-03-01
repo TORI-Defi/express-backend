@@ -6,8 +6,8 @@ const helmet = require('helmet');
 
 // define routers 
 const stripe = require('../router/stripe-route'); 
-const binance = require('../router/binance-route');
-const wallet = require('../router/wallet-route')
+// const binance = require('../router/binance-route');
+// const wallet = require('../router/wallet-route')
 
 //use dependencies
 server.use(helmet());
