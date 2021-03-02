@@ -10,16 +10,19 @@ const calculateOrderAmount = items => {
   };
 
 router.post('/create-payment-intent', async(req, res) => {
-    const {items} = req.body;
-
-    const paymentIntent = await stripe.paymentIntents.create({
-        amount: calculateOrderAmount(items),
-        curreny: "usd"
-    });
-
-    res.send({
-        clientSecret: paymentIntent.client_secret
-    })
+    try {
+        const {items} = req.body;
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: calculateOrderAmount(items),
+            currency: "usd"
+        });
+        res.send({
+            clientSecret: paymentIntent.client_secret
+        });
+        res.status(200).json();
+    } catch (error) {
+        res.status(500).json(`error creating resource ${error}`)
+    }    
 })
 
 module.exports = router;
