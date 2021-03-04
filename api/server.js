@@ -14,7 +14,7 @@ server.use(helmet());
 server.use(express.json());
 server.use(express.static("."))
 
-//assign urls to routers
+//assign urls to router
 server.use('/api/pay', stripe);
 // server.use('/api/trade', binance);
 // server.use('/api/wallet', wallet)
