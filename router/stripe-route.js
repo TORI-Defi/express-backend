@@ -3,16 +3,26 @@ const router = require('express').Router();
 const stripe = require('stripe')(process.env.TESTKEY)
 
 const calculateOrderAmount = items => {
-    // Replace this constant with a calculation of the order's amount
-    // Calculate the order total on the server to prevent
-    // people from directly manipulating the amount on the client
-    return 1400;
+    amountJson = JSON.parse(items.amount);
+    console.log(amountJson);
+    return amountJson;
   };
+
+const formatReply = items => {
+    type = items.type;
+    token = items.token;
+    amount = JSON.parse(items.amount);
+    address = items.address;
+
+    reply = `${type} $${amount} of ${token}  and send to ${address}`;
+    console.log(reply)
+    
+    return reply
+}
 
 router.post('/create-payment-intent', async(req, res) => {
     try {
-        const {items} = req.body;
-        // res.send(items);
+        const items = req.body;
 
         const paymentIntent = await stripe.paymentIntents.create({
             amount: calculateOrderAmount(items),
@@ -20,7 +30,7 @@ router.post('/create-payment-intent', async(req, res) => {
         });
         res.send({
             clientSecret: paymentIntent.client_secret,
-            reqItemsConfimOrder: req.body,
+            confirmReply: formatReply(items),
         });
         
         res.status(200).json();
