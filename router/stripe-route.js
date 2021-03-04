@@ -12,13 +12,17 @@ const calculateOrderAmount = items => {
 router.post('/create-payment-intent', async(req, res) => {
     try {
         const {items} = req.body;
+        // res.send(items);
+
         const paymentIntent = await stripe.paymentIntents.create({
             amount: calculateOrderAmount(items),
             currency: "usd"
         });
         res.send({
-            clientSecret: paymentIntent.client_secret
+            clientSecret: paymentIntent.client_secret,
+            reqItemsConfimOrder: req.body,
         });
+        
         res.status(200).json();
     } catch (error) {
         res.status(500).json(`error posting pay intent ${error}`)
@@ -54,11 +58,16 @@ router.post('/create-checkout-session', async(req,res) => {
 
 router.post('/new-order', async(req, res, next) => {
     try {
-        
+        const token = () => {}
+        const amount = () => {}
+        const wallet = () => {}
+
     } catch (error) {
-        
+        res.status(500).json(`error creating order ${error}`)
     }
 })
+
+
 
 
 module.exports = router;
