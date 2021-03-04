@@ -1,36 +1,20 @@
 require('dotenv').config();
 const router = require('express').Router();
 const stripe = require('stripe')(process.env.TESTKEY)
+const helper = require('./stripe-helper')
 
-const calculateOrderAmount = items => {
-    amountJson = JSON.parse(items.amount);
-    console.log(amountJson);
-    return amountJson;
-  };
-
-const formatReply = items => {
-    type = items.type;
-    token = items.token;
-    amount = JSON.parse(items.amount);
-    address = items.address;
-
-    reply = `${type} $${amount} of ${token}  and send to ${address}`;
-    console.log(reply)
-    
-    return reply
-}
 
 router.post('/create-payment-intent', async(req, res) => {
     try {
         const items = req.body;
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: calculateOrderAmount(items),
+            amount: helper.calculateOrderAmount(items),
             currency: "usd"
         });
         res.send({
             clientSecret: paymentIntent.client_secret,
-            confirmReply: formatReply(items),
+            confirmReply: helper.formatReply(items),
         });
         
         res.status(200).json();
