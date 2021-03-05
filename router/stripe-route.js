@@ -3,6 +3,8 @@ const router = require('express').Router();
 const stripe = require('stripe')(process.env.TESTKEY)
 const helper = require('./stripe-helper')
 
+const exchange = require('./exchange')
+
 
 router.post('/create-payment-intent', async(req, res) => {
     try {
@@ -25,6 +27,9 @@ router.post('/create-payment-intent', async(req, res) => {
 
 router.post('/create-checkout-session', async(req,res) => {
     try {
+        const items = req.body;
+        const confirmReply = helper.formatReply(items)
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
@@ -32,9 +37,9 @@ router.post('/create-checkout-session', async(req,res) => {
                 price_data: {
                   currency: 'usd',
                   product_data: {
-                    name: 'T-shirt',
+                    name: 'Tokens',
                   },
-                  unit_amount: 2000,
+                  unit_amount: JSON.parse(items.amount),
                 },
                 quantity: 1,
               },
@@ -44,20 +49,23 @@ router.post('/create-checkout-session', async(req,res) => {
             cancel_url: 'https://example.com/cancel',
           });
         
-          res.json({ id: session.id });
+          res.json({
+              id: session.id,
+              reply: confirmReply
+             });
     } catch (error) {
         res.status(500).json(`error creating pay session ${error}`)
     }
 })
 
-router.post('/new-order', async(req, res, next) => {
+router.post('/confirm-queue', async(req, res, ) => {
     try {
         const token = () => {}
         const amount = () => {}
         const wallet = () => {}
 
     } catch (error) {
-        res.status(500).json(`error creating order ${error}`)
+        res.status(500).json(`error placing enqueue ${error}`)
     }
 })
 

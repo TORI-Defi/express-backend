@@ -14,11 +14,11 @@ module.exports = {
         amount = JSON.parse(items.amount);
         address = items.address;
 
-        reply = `${type} $${amount} of ${token}  and send to ${address}`;
+        reply = `${type} $${amount} of ${token} and send it to ${address}?`;
         console.log(reply)
         
         return reply
     },
 
-    
+
 }
