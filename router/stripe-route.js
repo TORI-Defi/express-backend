@@ -3,8 +3,6 @@ const router = require('express').Router();
 const stripe = require('stripe')(process.env.TESTKEY)
 const helper = require('./stripe-helper')
 
-const exchange = require('./exchange')
-
 
 router.post('/create-payment-intent', async(req, res) => {
     try {
@@ -18,10 +16,10 @@ router.post('/create-payment-intent', async(req, res) => {
             clientSecret: paymentIntent.client_secret,
             confirmReply: helper.formatReply(items),
         });
-        
+
         res.status(200).json();
     } catch (error) {
-        res.status(500).json(`error posting pay intent ${error}`)
+        res.status(500).json(`error posting pay intent ${error}`);
     }    
 })
 
@@ -29,7 +27,6 @@ router.post('/create-checkout-session', async(req,res) => {
     try {
         const items = req.body;
         const confirmReply = helper.formatReply(items)
-
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
@@ -45,30 +42,19 @@ router.post('/create-checkout-session', async(req,res) => {
               },
             ],
             mode: 'payment',
-            success_url: 'https://example.com/success',
-            cancel_url: 'https://example.com/cancel',
-          });
+            success_url: 'https://tori.finance/success',
+            cancel_url: 'https://tori.finance/cancel',
+        }); 
         
-          res.json({
-              id: session.id,
-              reply: confirmReply
-             });
+        console.log(session);
+        
+        res.sendFile()
+        res.json({id: session.id});
+
     } catch (error) {
         res.status(500).json(`error creating pay session ${error}`)
     }
-})
-
-router.post('/confirm-queue', async(req, res, ) => {
-    try {
-        const token = () => {}
-        const amount = () => {}
-        const wallet = () => {}
-
-    } catch (error) {
-        res.status(500).json(`error placing enqueue ${error}`)
-    }
-})
-
+});
 
 
 
