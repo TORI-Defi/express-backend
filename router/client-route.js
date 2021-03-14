@@ -22,14 +22,14 @@ app.get('/about-us', (req, res) => {
     res.render('about-us');
 });
 
-app.get('/pay', (req, res) => {
+app.get('/checkout', (req, res) => {
     let order =   helper.formatOrder(req.body)
     res.render('checkout', {
-        userPhone : `${order.user}`
-        // type : `${order.type}`,
-        // token : `${order.token}`,
-        // amount : `${order.amount}`,
-        // address : `${order.address}`
+        userPhone : `${order[0]}`,
+        type : `${order[1]}`,
+        token : `${order[2]}`,
+        amount : `${order[3]}`,
+        address : `${order[4]}`
     })
 })
 
