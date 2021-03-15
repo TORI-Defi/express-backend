@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // A reference to Stripe.js initialized with your real test publishable API key.
 var stripe = Stripe("pk_test_51IQBcnIzUXAOuYOJQoqHRkMFTzXAx7bTFIQP0hUrY3lXqhvBGypsG62jxC5dgclDE1QAqzaP0Zkn8JrbCDse617q00bZtr6N3H");
 

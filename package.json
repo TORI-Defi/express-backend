@@ -10,8 +10,10 @@
   "author": "express-backend",
   "license": "ISC",
   "dependencies": {
+    "ccxt": "^1.42.54",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-handlebars": "^5.2.1",
     "helmet": "^4.4.1",
     "knex": "^0.21.18",
     "pg": "^8.5.1",
