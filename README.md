@@ -60,6 +60,9 @@ To get the server running locally:
 }
 ```
 
+[<img src="static/images/T0RI-Insomnia.png" />](https://github.com/TORI-Defi/express-backend)
+
+
 #### USERS [ INACTIVE]
 
 ---
@@ -85,6 +88,7 @@ To get the server running locally:
 
 `noneAtThisTime()` -> Nada
 
+
 ## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
@@ -97,6 +101,7 @@ create a .env file that includes the following:
     *  stripe_secret - this is generated in the Stripe dashboard
     *  each exchange will have their own api key which also needs to be defined.
     
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -136,4 +141,7 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 ## Documentation
 
 See [Notion](https://www.notion.so/Product-Vision-386d2e13c4a348218aefc808059ca793) for further details on our project.
+
+ #### Twilio Flow 
+[<img src="static/images/TORI-Twilio.png" />](https://github.com/TORI-Defi/express-backend)
 
