@@ -1,4 +1,4 @@
-class CircularBuffer {
+class Buffer {
     constructor(size) {
       this.memory = new Array(size);
       this.head = 0;
@@ -40,22 +40,9 @@ class CircularBuffer {
   }
 }
 
-module.exports = CircularBuffer;  
+module.exports = Buffer;  
 
-const buffer = new CircularBuffer(10);
+// const buffer = new Buffer(10);
 
 
 
-// html script   
-//   var buffer = new CircularBuffer(10);
-  
-//   document.addEventListener('keydown', event => {
-//     buffer.write(event.key);
-//   });
-  
-//   var readKeys = () => {
-//     console.log(buffer.read()); 
-//     setTimeout(readKeys, 500);
-//   }
-  
-//   readKeys();
